@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>React Website</title>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
+  <script src="react.production.min.js"></script>
+  <script src="react-dom.production.min.js"></script>
+  <script src="react-router-dom.min.js"></script>
+  <script src="babel.min.js"></script>
+  <style>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
+  </style>
+</head>
+<body>
+  <div id="root">Hello World</div>
+  <script type="text/babel">
+  const Link=ReactRouterDOM.Link;
+  const Route=ReactRouterDOM.Route;
+  class App extends React.Component{
+    render(){
+      return(
+        <ReactRouterDOM.HashRouter>
+        <div className="App">
+        <Navbar />
+        <Route exact path="/">
+        <Home />
+        </Route>
+        <Route path="about">
+        <About />
+        </Route>
+        <Route path="education">
+        <Education />
+        </Route>
+        </div>
+        </ReactRouterDOM.HashRouter>
+    );
+    }
+  }
+  class Navbar extends React.Component {
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            'NavItemActive':''
+        }
+    }
+    activeitem=(x)=>
+    {
+        if(this.state.NavItemActive.length>0){
+            document.getElementById(this.state.NavItemActive).classList.remove('active');
+        }
+        this.setState({'NavItemActive':x},()=>{
+            document.getElementById(this.state.NavItemActive).classList.add('active');
+        });
+    };
+    render() {
+        return (
+            <nav>
+            <ul>
+            <Navitem item="Home" tolink="/"  activec={this.activeitem}></Navitem>
+            <Navitem item="About" tolink="/about"  activec={this.activeitem}></Navitem>
+            <Navitem item="Education" tolink="/education"  activec={this.activeitem}></Navitem>
+            <Navitem item="Skills" tolink="/skills"  activec={this.activeitem}></Navitem>
+            <Navitem item="Contact" tolink="/contact"  activec={this.activeitem}></Navitem>
+            </ul>
+            </nav>
+            )
+        }
+    }
+    class Navitem extends React.Component {
+      render() {
+                  return (
+                      <li id={this.props.item}>
+                      <Link to={this.props.tolink} onClick={this.props.activec.bind(this,this.props.item)}>{this.props.item}</Link>
+                      </li>
+                      )
+              }
+          }
+  class Home extends React.Component {
+      render() {
+          return (
+              <div className="condiv home">
+              <img src="profilepic.gif" alt="ProfilePic" className="profilepic"></img>
+              <h1>Hello World: I am Shahid Saharan, I am a web developer</h1>
+              <Social />
+              </div>
+              )
+          }
+      }
+      class About extends React.Component {
+    render() {
+        return (
+            <div className="condiv">
+            <h1 className="subtopic">About Me</h1>
+            <h4>Hey there,</h4>
+            <h1>I'm Abdul Wahid Naafi</h1>
+            <h3>Full Stack Web <u>Developer</u> | UI/UX <u>Designer</u></h3>
+            <br></br>
+            <p>I started my journey in the world of computers from an young age,
+            now I’m 20 years old, Pursuing my Software Engineering Degree in
+            VIT University Vellore.  Web development is my center of interest, i always
+            love the idea of cross-platform development, 1-n one code base deploy into almost
+            any platform, which web technology like Javascript enables me to do. I also like
+            creating Interactive UI components for better UX  and share those desgin and codes
+            to the world through Github, Codepen and Instagram.
+            </p>
+
+            </div>
+            )
+        }
+    }
+    class Education extends React.Component {
+    render() {
+        return (
+            <div className="condiv">
+            <h1 className="subtopic">My Education</h1>
+            <Widecard title="M.Tech Software Engineering" where="VIT University" from="July 2017" to="Present"/>
+            <Widecard title="SSLC | HSC" where="Islamiah Higher Secondary School" from="2011" to="2017"/>
+            </div>
+            )
+        }
+    }
+    class Social extends React.Component {
+      render() {
+          return (
+              <div class="social">
+              <a href="https://codepen.io/naafi" target="_blank" rel="noopener noreferrer"><i class="fab fa-codepen"></i></a>
+              <a href="https://github.com/naaficodes" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+              <a href="https://Instagram.com/iam_naafi" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.facebook.com/abdul.w.naafi" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://Linkedin.com/in/naafi" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://medium.com/@iam_naafi" target="_blank" rel="noopener noreferrer"><i class="fab fa-medium-m"></i></a>
+              </div>
+              )
+          }
+      }
+      class Widecard extends React.Component {
+    render() {
+        return (
+            <div class="widecard">
+            <div class="compdet">
+            <h3>{this.props.title}</h3>
+            <h4 class="secondtext">{this.props.where}</h4>
+            <h4 class="secondtext">{this.props.from} - {this.props.to}</h4>
+            </div>
+            </div>
+            )
+        }
+    }
+ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
